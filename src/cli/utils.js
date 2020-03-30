@@ -347,6 +347,25 @@ const legacyLoadComponentConfig = (directoryPath) => {
   return componentFile
 }
 
+const possibleConfigurationFiles = [
+  'serverless.yml',
+  'serverless.yaml',
+  'serverless.json',
+  'serverless.js',
+  'serverless.component.yml',
+  'serverless.component.yaml',
+  'serverless.component.json'
+]
+
+const isProjectPath = async (inputPath) => {
+  for (const configurationFile of possibleConfigurationFiles) {
+    if (await fse.pathExists(path.join(inputPath, configurationFile))) {
+      return true
+    }
+  }
+  return false
+}
+
 // Same as internal Tencent check:
 // https://github.com/serverless-tencent/serverless-tencent-tools/blob/3c1cabbdb21c0b3ba37248b9c2f609ec552bf8fc/sdk/others/isInChina.js#L12
 const IS_IN_CHINA =
@@ -366,5 +385,6 @@ module.exports = {
   getInstanceDashboardUrl,
   legacyLoadComponentConfig,
   legacyLoadInstanceConfig,
+  isProjectPath,
   IS_IN_CHINA
 }
