@@ -4,7 +4,14 @@
 
 const args = require('minimist')(process.argv.slice(2))
 const CLI = require('./CLI')
-const commands = require('./commands')
+const { IS_IN_CHINA } = require('./utils')
+
+let commands
+if (IS_IN_CHINA) {
+  commands = require('./commands-cn')
+} else {
+  commands = require('./commands')
+}
 
 module.exports = async () => {
   const command = args._[0] || 'deploy'
