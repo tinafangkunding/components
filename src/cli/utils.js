@@ -351,7 +351,7 @@ const legacyLoadComponentConfig = (directoryPath) => {
 // https://github.com/serverless-tencent/serverless-tencent-tools/blob/3c1cabbdb21c0b3ba37248b9c2f609ec552bf8fc/sdk/others/isInChina.js#L12
 const IS_IN_CHINA =
   (Boolean(
-    new Date().getTimezoneOffset() == -480 || String(process.env.LC_CTYPE).indexOf('zh_CN')
+    new Date().getTimezoneOffset() == -480 || String(process.env.LC_CTYPE).includes('zh_CN')
   ) &&
     !process.env.SERVERLESS_PLATFORM_VENDOR) ||
   process.env.SERVERLESS_PLATFORM_VENDOR === 'tencent'

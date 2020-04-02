@@ -2,7 +2,7 @@
  * CLI: Command: CREATE
  */
 
-const utils = require('../utils')
+const utils = require('./utils')
 const { existsSync, copySync } = require('fs-extra')
 const path = require('path')
 

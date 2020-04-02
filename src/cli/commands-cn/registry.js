@@ -4,6 +4,7 @@
 
 const { ServerlessSDK } = require('@serverless/tencent-platform-client')
 const utils = require('./utils')
+const { loadComponentConfig } = require('../utils')
 
 /**
  * Publish a Component to the Serverless Registry
@@ -21,7 +22,7 @@ const publish = async (config, cli) => {
   const accessKey = await utils.getAccessKey()
 
   // Load YAML
-  const componentYaml = await utils.loadComponentConfig(process.cwd())
+  const componentYaml = await loadComponentConfig(process.cwd())
 
   // Presentation
   cli.logRegistryLogo()
@@ -113,12 +114,9 @@ const listFeatured = async (config, cli) => {
 
   cli.log(`Featured Components:`)
   cli.log()
-  cli.log(`  express - https://github.com/serverless-components/express`)
-  cli.log(`  website - https://github.com/serverless-components/website`)
-  cli.log(`  aws-lambda - https://github.com/serverless-components/aws-lambda`)
-  cli.log(`  aws-dynamodb - https://github.com/serverless-components/aws-dynamodb`)
-  cli.log(`  aws-iam-role - https://github.com/serverless-components/aws-iam-role`)
-  cli.log(`  aws-lambda-layer - https://github.com/serverless-components/aws-lambda-layer`)
+  cli.log(`  express - https://github.com/serverless-components/tencent-express`)
+  cli.log(`  website - https://github.com/serverless-components/tencent-website`)
+  cli.log(`  scf - https://github.com/serverless-components/tencent-scf`)
   cli.log()
   cli.log(`Find more here: https://github.com/serverless-components`)
   cli.log()

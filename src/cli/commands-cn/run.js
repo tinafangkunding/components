@@ -3,7 +3,6 @@
  */
 
 const { ServerlessSDK } = require('@serverless/tencent-platform-client')
-const chalk = require('chalk')
 const utils = require('./utils')
 
 module.exports = async (config, cli, command) => {
@@ -50,33 +49,7 @@ module.exports = async (config, cli, command) => {
 
   // Connect to Serverless Platform Events, if in debug mode
   if (options.debug) {
-    await sdk.connect({
-      filter: {
-        stageName: instanceYaml.stage,
-        appName: instanceYaml.app,
-        instanceName: instanceYaml.name
-      },
-      onEvent: (evt) => {
-        if (evt.event !== 'instance.run.logs') {
-          return
-        }
-        if (evt.data.logs && Array.isArray(evt.data.logs)) {
-          evt.data.logs.forEach((log) => {
-            // Remove strange formatting that comes from stderr
-            if (typeof log.data === 'string' && log.data.startsWith(`'`)) {
-              log.data = log.data.substr(1)
-            }
-            if (typeof log.data === 'string' && log.data.endsWith(`'`)) {
-              log.data = log.data.substring(0, log.data.length - 1)
-            }
-            if (typeof log.data === 'string' && log.data.endsWith(`\\n`)) {
-              log.data = log.data.substring(0, log.data.length - 2)
-            }
-            cli.log(log.data)
-          })
-        }
-      }
-    })
+    // TODO: to be implement for tencent
   }
 
   if (command === 'deploy') {
@@ -89,15 +62,14 @@ module.exports = async (config, cli, command) => {
       )
     }
 
-    const dashboardUrl = utils.getInstanceDashboardUrl(instanceYaml)
-
     // run deploy
     cli.status('Deploying', null, 'white')
     const instance = await sdk.deploy(instanceYaml, instanceCredentials, options)
     cli.log()
     cli.logOutputs(instance.outputs)
     cli.log()
-    cli.log(`${chalk.grey(`Full details: ${dashboardUrl}`)}`)
+    // const dashboardUrl = utils.getInstanceDashboardUrl(instanceYaml)
+    // cli.log(`${chalk.grey(`Full details: ${dashboardUrl}`)}`)
   } else if (command === 'remove') {
     // run remove
     cli.status('Removing', null, 'white')

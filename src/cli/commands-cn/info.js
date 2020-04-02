@@ -58,13 +58,12 @@ module.exports = async (config, cli) => {
   // format last action for better UX
   const lastActionAgo = moment(instance.lastActionAt).fromNow()
 
-  const dashboardUrl = utils.getInstanceDashboardUrl(instanceYaml)
-
   // show the most important information, and link to the dashboard
   cli.log(`${chalk.grey('Status:')}       ${instance.instanceStatus}`)
   cli.log(`${chalk.grey('Last Action:')}  ${instance.lastAction} (${lastActionAgo})`)
   cli.log(`${chalk.grey('Deployments:')}  ${instance.instanceMetrics.deployments}`)
-  cli.log(`${chalk.grey('More Info:')}    ${dashboardUrl}`)
+  // const dashboardUrl = utils.getInstanceDashboardUrl(instanceYaml)
+  // cli.log(`${chalk.grey('More Info:')}    ${dashboardUrl}`)
 
   // show state only in debug mode
   if (config.debug) {
